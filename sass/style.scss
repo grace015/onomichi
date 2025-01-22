@@ -1,0 +1,3656 @@
+@use "sass:map"; // mapモジュールをインポート
+
+$font-family-Noto: "Noto Serif JP";
+$font-family-Kiwi: "Kiwi Maru";
+$font-family-Cour: "Courgette";
+$font-family-Jose: "Josefin Sans";
+$font-color-Blown: #4A3636;
+$font-color-White: #FFF;
+$main-color: #9ED0E0;
+$sub-color-DBlue: #67B0C7;
+$sub-color-BGray: #CCE1E4;
+$sub-color-LBlue: #E9F6F8;
+$accent-color-Red: #CE2073;
+$accent-color-Yellow: #FFEE56;
+$monochrome-color-Blown: #4A3636;
+$monochrome-color-DGray: #CCC;
+$monochrome-color-Gray: #F5F5F5;
+$monochrome-color-White: #FFF;
+$bg-color: #e9f6f8;
+
+
+$text-color: #333;
+
+$width-inner: 1140px;
+
+// ブレークポイントの定義をマップとして設定
+$breakpoints: (
+    ss: "screen and (min-width: 600px)",
+    mm: "screen and (min-width: 900px)",
+    ll: "screen and (min-width: 1200px)",
+);
+
+// メディアクエリを生成するためのミックスインを定義
+@mixin mq($breakpoint: md) {
+    // 指定されたブレークポイントに基づいてメディアクエリを作成
+    @media #{map.get($breakpoints, $breakpoint)} {
+        // ミックスインに渡されたコンテンツを挿入
+        @content;
+    }
+}
+
+// ----- common -----
+
+// body全体
+body {
+    font-family: $font-family-Noto, sans-serif;// フォント
+    font-style: normal;// 通常体
+    font-size: 12px;// 文字サイズ
+    line-height: 160%;// 文字高さ
+    font-weight: 300;// 文字太さ
+    background: $bg-color;
+    color: $font-color-Blown;
+
+    .is-fixed {
+        overflow: hidden;
+    }
+
+    @include mq(ss) {
+        font-size: 14px;
+    }
+
+    @include mq(mm) {
+        font-size: 16px;
+    }
+
+    @include mq(ll) {
+        .is-fixed {
+            overflow: auto;
+        }
+    }
+}
+
+// 見出し
+.heading {
+    position: relative;
+    padding-top: 43.33px;
+    text-align: center;
+
+    @include mq(mm) {
+        padding-top: 56px;
+    }
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 37.33px;
+        height: 37.33px;
+        content: "";
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+
+        @include mq(mm) {
+            width: 48px;
+            height: 48px;
+        }
+    }
+}
+
+// 見出し 英字
+.heading__english {
+    text-align: center;
+    font-family: $font-family-Cour;
+    font-weight: 400;
+    line-height: 125%; /* 20px */
+
+    @include mq(mm) {
+        font-size: 20px;
+    }
+}
+
+// 見出し 日本語
+.heading__japanese {
+    text-align: center;
+    font-family: $font-family-Kiwi, serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 125%; /* 25px */
+
+    display: inline-block;
+    padding-bottom: 6px;
+    margin-top: 6px;
+    border-bottom: 6px solid $accent-color-Yellow;
+
+    @include mq(mm) {
+        padding-bottom: 8px;
+        margin-top: 8px;
+        font-size: 32px;
+        border-width: 8px;
+    }
+}
+
+// ----- ボタン -----
+// ボタン共通情報
+.button {
+    display: inline-block;
+    padding-top: 4px;
+    padding-right: 22px;
+    padding-bottom: 6px;
+    padding-left: 22px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #4a3636;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+    border: 2px solid #4a3636;
+    border-radius: 40px;
+    box-shadow: 0px 4px 0px 0px #4a3636;
+    transition: background-color 0.3s;
+
+    @include mq(mm) {
+        padding-top: 8px;
+        padding-right: 37px;
+        padding-bottom: 10px;
+        padding-left: 37px;
+        font-size: 20px;
+        border-width: 3px;
+    }
+
+    &:hover {
+        background-color: $accent-color-Yellow;
+    }
+}
+
+.button--submit {
+    width: 240px;
+    padding-top: 4px;
+    padding-bottom: 6px;
+    font-size: 16px;
+    border-width: 2px;
+
+    @include mq(mm) {
+        width: 240px;
+        padding-top: 4px;
+        padding-bottom: 6px;
+        font-size: 16px;
+        border-width: 2px;
+    }
+}
+
+
+.s-button {
+    padding-top: 2px;
+    padding-right: 22px;
+    padding-bottom: 4px;
+    padding-left: 22px;
+    font-size: 14px;
+
+    @include mq(mm) {
+        padding-top: 4px;
+        padding-right: 22px;
+        padding-bottom: 6px;
+        padding-left: 22px;
+        font-size: 16px;
+        border-width: 2px;
+    }
+}
+
+.follow-button {
+    position: relative;
+    display: inline-block;
+    padding-top: 7px;
+    padding-right: 11px;
+    padding-bottom: 7px;
+    padding-left: 39px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    background: $monochrome-color-White;
+    border: solid 1px transparent;
+    transition: border-color 0.3s;
+
+    @include mq(mm) {
+        padding-bottom: 7px;
+    }
+
+    @include mq(ll) {
+        padding-left: 44px;
+        font-size: 16px;
+    }
+
+    &:hover {
+        border-color: $main-color;
+    }
+
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        width: 20px;
+        height: 20px;
+        content: "";
+        background-image: url(../img/icon_instagram.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateY(-50%);
+
+        @include mq(mm) {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+// ----- /ボタン -----
+
+// PC時に非表示
+.hidden-pc {
+    @include mq(mm) {
+        display: none;
+    }
+
+    @include mq(ll) {
+        display: none;
+    }
+}
+
+// SP時に非表示
+.hidden-sp {
+    display: none;
+
+    @include mq(mm) {
+        display: block;
+    }
+
+    @include mq(ll) {
+        display: block;
+    }
+}
+
+// はみ出た画像などは表示させない
+.wrapper {
+    overflow: hidden;
+}
+
+.inner {
+    max-width: 640px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(mm) {
+        max-width: 1084px;
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+}
+
+// リンクの下線やhover
+.link-text {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    -webkit-text-decoration-skip-ink: none;
+            text-decoration-skip-ink: none;
+
+    &:hover {
+        color: $sub-color-DBlue;
+    }
+}
+
+// 余白を維持して改行させる
+.inline-block {
+    display: inline-block;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+// 強調したい部分
+.font-weight-bold {
+    font-weight: 700;
+}
+// ----- /common -----
+
+// ----- header -----
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    width: 100%;
+    height: 64px;
+    background: $monochrome-color-White;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    height: inherit;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    @include mq(mm) {
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+}
+
+.header__logo {
+    a, img {
+        display: block;
+        width: 210px;
+
+        @include mq(mm) {
+            width: 183px;
+        }
+    }
+}
+
+.header__logo-img {
+}
+
+.header__nav{
+    display: none;
+    gap: 12px;
+    align-items: center;
+    height: inherit;
+    margin-left: auto;
+
+    @include mq(ll) {
+        display: flex;
+    }
+}
+
+.header__link{
+    display: flex;
+    // 上下中央揃え
+    align-items: center;
+    height: 100%;
+    font-size: 12px;
+
+    &:hover {
+        color: $sub-color-DBlue;
+        text-decoration: underline;
+        transition: color 0.3s, -webkit-text-decoration-color 0.2s;
+        transition: color 0.3s, text-decoration-color 0.2s;
+        transition: color 0.3s, text-decoration-color 0.2s, -webkit-text-decoration-color 0.2s;
+        -webkit-text-decoration-color: $sub-color-DBlue;
+                text-decoration-color: $sub-color-DBlue;
+    }
+}
+
+.header__button{
+    margin-left: 4px;
+}
+
+.header__open{
+    margin-left: auto;
+    line-height: 0;
+    
+    @include mq(ll) {
+        // PCでは非表示
+        display: none;
+    }
+}
+
+// ドロワーアイコン
+.drawer-icon{
+    position: relative;
+    width: 32px;
+    height: 27px;
+
+    &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: calc(100% + 20px);
+        height: 64px;
+        content: "";
+        transform: translate(-50%, -50%);
+    }
+
+    // クリックしたら×アイコン
+    &.is-checked {
+        .drawer-icon__bar {
+            .drawer-icon__dot {
+                display: none;
+            }
+        
+            &:nth-of-type(1) {
+                top: 10px;
+                width: 100%;
+                transform: rotate(45deg);
+            }
+        
+            &:nth-of-type(2) {
+                display: none;
+            }
+        
+            &:nth-of-type(3) {
+                top: 10px;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+
+    // ハンバーガーアイコン
+    .drawer-icon__bar {
+        position: absolute;
+        left: 0;
+        width: 32px;
+        height: 3px;
+        background-color: #4a3636;
+        border-radius: 6px;
+        transition: transform 0.3s linear, top 0.3s linear;
+    
+        // 右上のドット
+        .drawer-icon__dot {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 28px;
+            width: 4px;
+            height: 3px;
+            background: #4a3636;
+            border-radius: 6px;
+        }
+    
+        // 1番上の線(少し短い)
+        &:nth-of-type(1) {
+            top: 0;
+            left: 0;
+            width: 25.6px;
+        }
+    
+        // 2番目の線
+        &:nth-of-type(2) {
+            top: 50%;
+            background: #4a3636;
+            transform: translateY(-50%);
+        }
+    
+        // 3番目の線
+        &:nth-of-type(3) {
+            bottom: 0;
+            background: #4a3636;
+        }
+    }
+}
+// ----- /header -----
+
+// ----- drawer content -----
+.drawer-content {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    z-index: 20;
+    display: none;
+    width: 100%;
+    height: calc(100dvh - 64px);
+    padding-top: 59px;
+    padding-bottom: 60px;
+    overflow-y: auto;
+    background: #fff;
+
+    @include mq(ll) {
+        display: none;
+    }
+}
+
+.drawer-content__menu {
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    width: fit-content;
+    margin: auto;
+}
+
+.drawer-content__link {
+    display: block;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.572;
+    text-align: center;
+    
+    // hover操作が可能なデバイスのみ適用
+    @media (hover: hover) {
+        -webkit-text-decoration-line: underline;
+            text-decoration-line: underline;
+        -webkit-text-decoration-color: transparent;
+            text-decoration-color: transparent;
+        text-underline-offset: 4px;
+        transition: color 0.3s, -webkit-text-decoration-color 0.2s;
+        transition: color 0.3s, text-decoration-color 0.2s;
+        transition: color 0.3s, text-decoration-color 0.2s, -webkit-text-decoration-color 0.2s;
+
+        &:hover {
+            color: #67b0c7;
+            -webkit-text-decoration-color: #67b0c7;
+            text-decoration-color: #67b0c7;
+        }
+    }
+}
+
+.drawer-content__button {
+    margin-top: 20px;
+}
+// ----- /drawer content -----
+
+// ----- fv -----
+.first-view {
+    position: relative;
+    padding-top: 17px;
+    margin-top: 64px;
+
+    @include mq(mm) {
+        padding-top: 34px;
+    }
+}
+
+// 背景
+.first-view__background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 156px);
+    overflow: hidden;
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+
+    @include mq(mm) {
+        height: calc(100% - 96px);
+        border-bottom-right-radius: 40px;
+        border-bottom-left-radius: 40px;
+    }
+    
+    img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+           object-fit: cover;  /* 画像が縦横比を維持しながら、コンテナ全体を埋める */
+        -o-object-position: center;
+           object-position: center; /* 画像の中央を基準に表示 */
+
+        @include mq(mm) {
+            -o-object-position: center bottom;
+                object-position: center bottom;
+        }
+    }
+}
+
+.first-view__inner {
+    position: relative;
+    width: 100%;
+    max-width: 335px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(mm) {
+        max-width: 848px;
+    }
+}
+
+// 上の文字
+.first-view__description {
+    text-shadow: 0px 0px 30px $font-color-White;
+    font-family: $font-family-Kiwi, serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 125%; /* 17.5px */
+    text-align: center;
+
+    @include mq(mm) {
+        font-size: 24px;
+        font-weight: 500;
+    }
+}
+
+// #見つけて尾道レトロキャンペーン!
+.first-view__lead {
+    margin-top: 20px;
+
+    @include mq(mm) {
+        width: 520px;
+        max-width: 100%;
+        margin-top: 24px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+// img-group
+.first-view__decoration-wrap {
+    position: relative;
+    margin-top: 10px;
+    height: 522px;
+
+    @include mq(mm) {
+        height: 558px;
+        margin-top: 0;
+    }
+}
+
+// img smart-phone
+.first-view__decoration-smart-phone {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+
+    @include mq(mm) {
+        bottom: 15px;
+    }
+}
+
+.decoration-smart-phone {
+    width: 200px;
+    max-width: 100%;
+
+    @include mq(mm) {
+        width: 250px;
+    }
+}
+
+.decoration-smart-phone__image {
+    position: relative;
+}
+
+// text smart-phone 全体
+.decoration-smart-phone__wrap {
+    position: absolute;
+    top: calc(50% - 3px);
+    left: 50%;
+    width: calc(100% - 40px);
+    overflow: hidden;
+    text-align: center;
+    background: #fff;
+    border-radius: 12.8px;
+    transform: translate(-50%, -50%);
+
+    @include mq(mm) {
+        top: calc(50% - 6px);
+        width: calc(100% - 50px);
+        border-radius: 16px;
+    }
+}
+
+// text smart-phone #見つけて尾道レトロ
+.decoration-smart-phone__heading {
+    padding: 6px 9.6px;
+    background: linear-gradient(265deg, #AC3790 -3.52%, #D65A5C 44.94%, #F4C06D 92.38%);
+
+    color: $font-color-White;
+    text-align: center;
+    font-size: 12.8px;
+    font-weight: 700;
+    line-height: 160%; /* 20.48px */
+
+    @include mq(mm) {
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+}
+
+// text smart-phone 応募期間と日にち
+.decoration-smart-phone__body {
+    padding-top: 12.8px;
+    padding-bottom: 15.2px;
+
+    @include mq(mm) {
+        padding-top: 14px;
+        padding-bottom: 20px;
+    }
+}
+
+// text smart-phone 応募期間
+.decoration-smart-phone__sub-heading {
+
+    span {
+        display: inline-block;
+        padding-bottom: 1px;
+        font-size: 12px;
+        border-bottom: 2.4px solid $accent-color-Red;
+
+        @include mq(mm) {
+            font-size: 14px;
+            border-bottom-width: 3px;
+        }
+    }
+}
+
+// text smart-phone 日にち
+.decoration-smart-phone__text {
+    margin-top: 3.2px;
+    font-size: 12px;
+    font-weight: 700;
+
+    @include mq(mm) {
+        margin-top: 4px;
+        font-size: 15.5px;
+        transform: scale(0.9, 1);
+    }
+}
+
+// text smart-phone 応募してみるボタン
+.decoration-smart-phone__button {
+    padding-bottom: 4px;
+    margin-top: 12.8px;
+
+    @include mq(mm) {
+        margin-top: 16px;
+    }
+}
+
+// img share a moment in a snap!
+.first-view__decoration-english-message {
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 142px;
+    max-width: 100%;
+
+    @include mq(mm) {
+        top: 0;
+        right: calc(50% + 143px);
+        left: auto;
+        width: 244px;
+    }
+}
+
+// img 尾道ギフトを100名様にプレゼント
+.first-view__decoration-red-circle-text {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 110px;
+    max-width: 100%;
+
+    @include mq(mm) {
+        top: 17px;
+        right: auto;
+        left: calc(50% + 117px);
+        width: 180px;
+    }
+}
+
+// img コーヒーとお菓子
+.first-view__decoration-coffee-and-sweets {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    z-index: 3;
+    width: 90px;
+    max-width: 100%;
+
+    @include mq(mm) {
+        bottom: -3px;
+        width: 212px;
+    }
+}
+
+// img 猫
+.first-view__decoration-cats {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+
+    @include mq(mm) {
+        bottom: -44px;
+    }
+}
+
+.decoration-cats1 {
+    position: relative;
+    width: 107px;
+    height: 127px;
+
+    @include mq(mm) {
+        width: 233px;
+        height: 294px;
+    }
+}
+
+.decoration-cats1__1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 62px;
+
+    @include mq(mm) {
+        left: 0;
+        width: 170px;
+    }
+}
+
+.decoration-cats1__2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 98px;
+
+    @include mq(mm) {
+        right: 0;
+        bottom: 0;
+        width: 100%;
+    }
+}
+// ----- /fv -----
+
+// ----- about -----
+.about {
+    position: relative;
+    margin-top: 32px;
+
+    @include mq(mm) {
+        margin-top: 80px;
+    }
+}
+
+// ---左右の画像
+// 左右の画像 共通
+.about__decoration {
+    position: absolute;
+}
+
+// left 四角い縞模様
+.about__decoration-striped-pattern {
+    top: -20px;
+    right: calc(50% + 280px);
+    width: 250px;
+    overflow: hidden;
+    border-radius: 24px;
+
+    @include mq(ll) {
+        right: calc(50% + 527px);
+    }
+}
+
+// left ロープウェイ
+.about__decoration-picture-left {
+    top: 395px;
+    right: calc(50% + 128px);
+    width: 200px;
+    overflow: hidden;
+    border-radius: 24px;
+
+    @include mq(ss) {
+        right: calc(50% + 180px);
+    }
+
+    @include mq(mm) {
+        top: 74px;
+        right: calc(50% + 360px);
+        z-index: 2;
+        width: 480px;
+        border-radius: 40px;
+    }
+
+    @include mq(ll) {
+        right: calc(50% + 614px);
+    }
+}
+
+// left 階段
+.about__decoration-staircase {
+    bottom: 61px;
+    left: 0;
+    width: 138px;
+
+    @include mq(ss) {
+        width: 200px;
+    }
+
+    @include mq(mm) {
+        right: calc(50% + 150px);
+        bottom: 149px;
+        left: auto;
+        width: 427px;
+    }
+
+    @include mq(ll) {
+        right: calc(50% + 432px);
+    }
+}
+
+// right 猫の足跡
+.about__decoration-pawpads {
+    top: -9px;
+    left: calc(50% + 133px);
+    width: 54px;
+
+    @include mq(ss) {
+        top: -20px;
+        left: calc(50% + 205px);
+    }
+
+    @include mq(mm) {
+        top: -60px;
+        left: calc(50% + 300px);
+        width: 70px;
+    }
+
+    @include mq(ll) {
+        top: -80px;
+        left: calc(50% + 490px);
+        width: 100px;
+    }
+}
+
+// right フェリー
+.about__decoration-picture-right {
+    top: 274px;
+    left: calc(50% + 127px);
+    width: 200px;
+    overflow: hidden;
+    border-radius: 24px;
+
+    @include mq(ss) {
+        left: calc(50% + 180px);
+    }
+
+    @include mq(mm) {
+        top: 73px;
+        left: calc(50% + 360px);
+        width: 480px;
+        border-radius: 40px;
+    }
+
+    @include mq(ll) {
+        left: calc(50% + 560px);
+    }
+}
+
+// right 波の模様
+.about__decoration-wave {
+    bottom: 632px;
+    left: calc(50% + 200px);
+    width: 874px;
+
+    @include mq(ll) {
+        left: calc(50% + 448px);
+    }
+}
+
+// right 雑貨
+.about__decoration-goods1 {
+    bottom: 217px;
+    left: calc(50% + 118px);
+    width: 48px;
+
+    @include mq(ss) {
+        left: calc(50% + 280px);
+        width: 80px;
+    }
+
+    @include mq(mm) {
+        top: 601px;
+        left: calc(50% + 300px);
+        width: 101px;
+        height: 101px;
+    }
+
+    @include mq(ll) {
+        left: calc(50% + 505px);
+    }
+}
+
+
+.about__decoration-goods2 {
+    bottom: 157px;
+    left: calc(50% - 3px);
+    width: 133px;
+
+    @include mq(ss) {
+        left: calc(50% + 97px);
+        width: 200px;
+    }
+
+    @include mq(mm) {
+        bottom: 290px;
+        left: calc(50% + 120px);
+        width: 308px;
+    }
+
+    @include mq(ll) {
+        bottom: 377px;
+        left: calc(50% + 374px);
+    }
+}
+// ---/左右の画像
+
+.about__inner {
+    max-width: 375px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include mq(ss) {
+        max-width: 500px;
+    }
+
+    @include mq(mm) {
+        max-width: 640px;
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    @include mq(ll) {
+        max-width: 908px;
+    }
+}
+
+.about-top {
+    // 下向き三角のためにrelative
+    position: relative;
+    padding-top: 40px;
+    padding-right: 20px;
+    padding-bottom: 36px;
+    padding-left: 20px;
+    background: $monochrome-color-White;
+    border-radius: 24px;
+
+    // 下向き三角
+    &:after {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        width: 100px;
+        height: 36px;
+        -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
+                clip-path: polygon(0 0, 100% 0, 50% 100%);
+        content: "";
+        background-color: $sub-color-BGray;
+        transform: translateX(-50%);
+
+        @include mq(mm) {
+            width: 140px;
+            height: 50px;
+        }
+    }
+
+    @include mq(mm) {
+        border-radius: 40px;
+    }
+}
+
+// about左上の写真
+.about-top__image-left {
+    position: absolute;
+    top: 31.87px;
+    right: calc(50% + 46.5px);
+    width: 80px;
+    transform: rotate(-8deg);
+    transform-origin: right bottom;
+
+    @include mq(mm) {
+        top: 41px;
+        right: calc(50% + 192px);
+        width: 134px;
+    }
+}
+
+// about右上の写真
+.about-top__image-right {
+    position: absolute;
+    top: 30px;
+    left: calc(50% + 60.15px);
+    width: 80px;
+    transform: rotate(8deg);
+    transform-origin: left bottom;
+
+    @include mq(mm) {
+        top: 46px;
+        left: calc(50% + 192px);
+        width: 134px;
+    }
+}
+
+.heading--campaign {
+    
+    // メガホン
+    &:before {
+        background-image: url(../img/img_about-Icon.svg);
+
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 37.33px;
+        height: 37.33px;
+        content: "";
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+    }
+}
+
+// あなたの心が～
+.about-top__sub-heading {
+    margin-top: 24px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+
+    @include mq(ss) {
+        font-size: 16px;
+    }
+
+    @include mq(mm) {
+        margin-top: 34px;
+    }
+}
+
+// テキスト
+.about-top__text-wrap {
+    margin-top: 24px;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 32px;
+    }
+}
+
+// 2目以降の.about-top__text
+.about-top__text:not(:first-child) {
+    margin-top: 1.5em;
+
+    @include mq(mm) {
+        margin-top: 1.7em;
+    }
+}
+
+.about-top__emphasis-text {
+    display: inline-block;
+    padding-bottom: 6px;
+    margin-top: 32px;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 2px dashed $main-color;
+
+    @include mq(mm) {
+        padding-bottom: 10px;
+        margin-top: 44px;
+        font-size: 20px;
+    }
+}
+
+.about-top__button {
+    padding-bottom: 4px;
+    margin-top: 24px;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 32px;
+    }
+}
+
+.about__bottom {
+    margin-top: 135px;
+
+    @include mq(mm) {
+        margin-top: 154px;
+    }
+}
+
+// 「onomichi」の画像
+.about__decoration-english {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 363px;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    img {
+        width: 100%;
+    }
+
+    @include mq(mm) {
+        width: 770px;
+    }
+
+    @include mq(ll) {
+        width: 906px;
+    }
+}
+
+.about__slider {
+    position: relative;
+    z-index: 2;
+    margin-top: -18px;
+
+    @include mq(mm) {
+        margin-top: -5px;
+    }
+}
+
+// swiper,swiper-wrapper,swiper-slideは特に何もしない
+
+.about-swiper__slide {
+    overflow: hidden;
+    border-radius: 12px;
+
+    @include mq(mm) {
+        border-radius: 24px;
+    }
+}
+// ----- /about -----
+
+// ----- how to entry -----
+.how-to-entry {
+    margin-top: 65px;
+
+    @include mq(mm) {
+        margin-top: 120px;
+    }
+}
+
+.how-to-entry__inner {
+    position: relative;
+    max-width: 375px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(ss) {
+        max-width: 500px;
+    }
+
+    @include mq(mm) {
+        max-width: 1512px;
+    }
+
+    @include mq(ll) {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+}
+
+// 装飾の画像の共通
+.how-to-entry__decoration {
+    position: absolute;
+    z-index: -1;
+}
+
+// 地図
+.how-to-entry__decoration-map {
+    top: 0;
+    right: calc(50% + 39px);
+    width: 149px;
+
+    @include mq(ss) {
+        right: calc(50% + 80px);
+        width: 180px;
+    }
+
+    @include mq(mm) {
+        top: -60px;
+        right: calc(50% + 180px);
+        left: auto;
+        width: 380px;
+    }
+
+    @include mq(ll) {
+        right: calc(50% + 260px);
+        width: 460px;
+    }
+}
+
+.how-to-entry__decoration-cats {
+    top: 0;
+    left: calc(50% + 58px);
+    z-index: 2;
+
+    @include mq(mm) {
+        top: -26px;
+        left: calc(50% + 200px);
+    }
+
+    @include mq(ll) {
+        left: calc(50% + 287px);
+    }
+}
+
+// 猫を入れる箱
+.decoration-cats2 {
+    position: relative;
+    width: 160px;
+    height: 85px;
+
+    @include mq(mm) {
+        width: 364px;
+        height: 191.08px;
+    }
+}
+
+// 茶色の猫
+.decoration-cats2__1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 105px;
+
+    @include mq(mm) {
+        width: 238px;
+    }
+}
+
+// 黒色の猫
+.decoration-cats2__2 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 94px;
+
+    @include mq(mm) {
+        width: 214px;
+    }
+}
+
+// 足跡
+// 右上
+.how-to-entry__decoration-pawpads-1 {
+    top: 74px;
+    right: 20px;
+    width: 55px;
+
+    @include mq(mm) {
+        top: 148px;
+        right: 0px;
+        width: 70px;
+    }
+
+    @include mq(ll) {
+        right: 36px;
+        width: 100px;
+    }
+}
+// 左
+.how-to-entry__decoration-pawpads-2 {
+    top: 516px;
+    left: 20px;
+    width: 55px;
+    transform: rotate(180deg);
+
+    @include mq(mm) {
+        bottom: 40px;
+        left: 0;
+        width: 70px;
+    }
+
+    @include mq(ll) {
+        left: 36px;
+        width: 100px;
+    }
+}
+// 右下
+.how-to-entry__decoration-pawpads-3 {
+    right: 20px;
+    bottom: 367px;
+    width: 55px;
+    transform: rotate(180deg);
+}
+
+.heading--camera {
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 37.33px;
+        height: 37.33px;
+        content: "";
+        background-image: url(../img/icon_camera.svg);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+    }
+}
+
+
+.how-to-entry__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-top: 32px;
+
+    @include mq(mm) {
+        flex-direction: row;
+        gap: 7px;
+        justify-content: center;
+    }
+
+    @include mq(ll) {
+        gap: 32px;
+        margin-top: 40px;
+    }
+}
+
+.how-to-entry__step {
+    position: relative;
+
+    @include mq(mm) {
+        max-width: 294px;
+    }
+
+    @include mq(ll) {
+        max-width: 320px;
+    }
+
+    // ----- step間の波線 -----
+    &:first-of-type, &:nth-of-type(2) {
+        position: relative;
+    }
+
+    &:first-of-type:after, &:nth-of-type(2):after {
+        position: absolute;
+        top: calc(100% + 16px);
+        left: 50%;
+        z-index: 3;
+        width: 7px;
+        height: 34px;
+        content: "";
+        background-color: transparent;
+        background-image: url(../img/deco_how-to-entry4_sp.webp);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+
+        @include mq(mm) {
+            left: auto;
+            width: 70px;
+            height: 16px;
+            background-image: url(../img/deco_how-to-entry4_pc.svg);
+            transform: initial;
+        }
+
+        @include mq(ll) {
+            width: 114px;
+            height: 24px;
+        }
+    }
+
+    &:first-of-type::after {
+        @include mq(mm) {
+            top: 150px;
+            right: -25px;
+        }
+    
+        @include mq(ll) {
+            top: 204px;
+            right: -50px;
+        }
+    }
+
+    &:nth-of-type(2) {
+        @include mq(mm) {
+            margin-top: 50px;
+        }
+    
+        @include mq(ll) {
+            margin-top: 68px;
+        }
+    }
+
+    &:nth-of-type(2):after {
+        @include mq(mm) {
+            top: 100px;
+            right: -25px;
+        }
+    
+        @include mq(ll) {
+            top: 136px;
+            right: -57px;
+        }
+    }
+
+    &::after, &:nth-of-type(2):after {
+        position: absolute;
+        top: calc(100% + 16px);
+        left: 50%;
+        z-index: 3;
+        width: 7px;
+        height: 34px;
+        content: "";
+        background-image: url(../img/deco_how-to-entry4_sp.webp);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+
+        @include mq(mm) {
+            top: 150px;
+            right: -25px;
+            width: 70px;
+            height: 16px;
+            background-image: url(../img/deco_how-to-entry4_pc.svg);
+            transform: initial;
+        }
+    
+        @include mq(ll) {
+            top: 204px;
+            right: -50px;
+            width: 114px;
+            height: 24px;
+        }
+    }
+
+    // 3つ目のステップは波線を表示しない
+    &:nth-of-type(3)::after {
+        content: none;
+    }
+    // ----- /step間の波線 -----
+}
+
+.step-box {
+    text-align: center;
+}
+
+// step 画像
+.step-box__image {
+    width: 196px;
+    margin: 0 auto;
+
+    @include mq(mm) {
+        width: 87.5%;
+    }
+}
+
+// step テキスト
+.step-box__heading {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 700;
+
+    @include mq(ll) {
+        margin-top: 24px;
+        font-size: 20px;
+    }
+}
+
+.step-box__text {
+    margin-top: 16px;
+    line-height: 1.59;
+
+    @include mq(mm) {
+        font-size: 14px;
+    }
+
+    @include mq(ll) {
+        margin-top: 17px;
+        font-size: 16px;
+    }
+}
+
+.step-box__follow-button {
+    margin-top: 14px;
+
+    @include mq(mm) {
+        margin-top: 16px;
+    }
+}
+
+.step-box__heading--large {
+    @include mq(mm) {
+        font-size: 24px;
+        font-weight: 700;
+    }
+}
+
+// ボタン
+.how-to-entry__button {
+    padding-bottom: 4px;
+    margin-top: 16px;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 48px;
+    }
+}
+// ----- /how to entry -----
+
+// ----- prizes -----
+.prizes {
+    margin-top: 32px;
+
+    @include mq(mm) {
+        margin-top: 120px;
+    }
+}
+
+.prizes__inner {
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(mm) {
+        max-width: 1084px;
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+}
+
+.prizes__contents {
+    position: relative;
+    z-index: 2;
+    padding-top: 20.3px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+
+    @include mq(mm) {
+        max-width: 100%;
+        padding-top: 30px;
+        padding-right: 30px;
+        padding-bottom: 49px;
+        padding-left: 30px;
+    }
+
+    @include mq(ll) {
+        padding-right: 56px;
+        padding-left: 56px;
+    }
+
+    &::before, &::after {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        background-color: $monochrome-color-White;
+    }
+
+    // 白い半円
+    &::before {
+        top: 0;
+        left: 50%;
+        width: 238px;
+        height: 83px;
+        background-color: transparent;
+        background-image: url(../img/deco_prizes1_sp.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        transform: translateX(-50%);
+
+        @include mq(mm) {
+            width: 372px;
+            height: 148px;
+            background-image: url(../img/deco_prizes1_pc.svg);
+        }
+    }
+
+    // 白い背景
+    &::after {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 83px);
+        border-radius: 24px;
+
+        @include mq(mm) {
+            height: calc(100% - 148px);
+        }
+    }
+}
+
+.prizes__decoration-triangle-left,
+.prizes__decoration-triangle-right {
+    position: absolute;
+    top: 0;
+    display: none;
+    width: calc((100% - 390px) / 2);
+    min-height: 148px;
+
+    @include mq(mm) {
+        display: flex;
+    }
+}
+
+// PC 左上の三角
+.prizes__decoration-triangle-left {
+    left: 0;
+}
+
+// PC 右上の三角
+.prizes__decoration-triangle-right {
+    right: 0;
+}
+
+.heading--prizes {
+    position: relative;
+
+    // プレゼントアイコン
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 37.33px;
+        height: 37.33px;
+        content: "";
+        background-color: transparent;
+        background-image: url(../img/icon_prizes.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+    }
+}
+
+// 説明テキスト
+.prizes__text {
+    margin-top: 16px;
+    text-align: center;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%;
+
+    @include mq(mm) {
+        margin-top: 40px;
+    }
+}
+
+// 特典まとめ
+.prizes__cards {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 39px;
+    -moz-column-gap: 15px;
+         column-gap: 15px;
+    justify-content: center;
+    margin-top: 48px;
+
+    @include mq(mm) {
+        display: grid;
+        grid-template-rows: repeat(2, auto);
+        grid-template-columns: repeat(6, 1fr);
+        grid-row-gap: 60px;
+        grid-column-gap: 15px;
+        margin-top: 82px;
+    }
+
+    @include mq(ll) {
+        grid-row-gap: 80px;
+        grid-column-gap: 32px;
+    }
+}
+
+// 各特典
+.prizes__card {
+    width: calc(50% - 7.5px);
+
+    @include mq(mm) {
+        width: 100%;
+    }
+
+    // 特典の配置を変更
+    &:nth-of-type(1) {
+        @include mq(mm) {
+            grid-area: 1/1/2/4;
+        }
+    }
+
+    &:nth-of-type(2) {
+        @include mq(mm) {
+            grid-area: 1/4/2/7;
+        }
+    }
+
+    &:nth-of-type(3) {
+        @include mq(mm) {
+            grid-area: 2/1/3/3;
+            width: calc(100% - 2.6666666667px);
+        }
+    }
+
+    &:nth-of-type(4) {
+        @include mq(mm) {
+            grid-area: 2/3/3/5;
+            width: calc(100% - 2.6666666667px);
+            margin-left: 1px;
+        }
+    }
+
+    &:nth-of-type(5) {
+        @include mq(mm) {
+            grid-area: 2/5/3/7;
+            width: calc(100% - 2.6666666667px);
+            margin-left: 3px;
+        }
+    }
+}
+
+.prizes-card {
+    position: relative;
+    border-radius: 8px;
+
+    // hoverした時に
+    // 画像をズーム
+    // borderを明るくする
+    &:hover {
+        .prizes-card__image {
+
+            img {
+                transform: scale(1.2);
+            }
+        }
+
+        .prizes-card__icon {
+            svg {
+                .background {
+                    fill: $main-color;
+                }
+            }
+        }
+    }
+}
+
+// 特典1,2のみのクラス
+.prizes-card--large {
+
+    .prizes-card__number {
+        @include mq(mm) {
+            top: -40px;
+            width: 80px;
+        }
+
+        @include mq(ll) {
+            top: -50px;
+            width: 100px;
+        }
+    }
+
+    .prizes-card__inner {
+        border-radius: 24px;
+    }
+
+    .prizes-card__image {
+        @include mq(mm) {
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+        }
+    }
+
+    .prizes-card__heading {
+        @include mq(mm) {
+            min-height: 120px;
+            font-size: 20px;
+        }
+    }
+
+    .prizes-card__button {
+        @include mq(mm) {
+            border-radius: 24px;
+        }
+    }
+
+    .prizes-card__icon {
+        svg {
+            @include mq(mm) {
+                width: 80px;
+                height: 80px;
+                border-bottom-right-radius: 24px;
+            }
+
+            @include mq(ll) {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+}
+
+// 特典の番号
+.prizes-card__number {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    z-index: 2;
+    width: 48px;
+    transform: translateX(-50%);
+
+    @include mq(mm) {
+        top: -30px;
+        width: 60px;
+    }
+
+    @include mq(ll) {
+        top: -40px;
+        width: 80px;
+    }
+}
+
+.prizes-card__inner {
+    position: relative;
+    background-color: $monochrome-color-Gray;
+    border-radius: 8px;
+
+    @include mq(mm) {
+        border-radius: 16px;
+    }
+}
+
+// 特典の画像
+.prizes-card__image {
+    display: block;
+    overflow: hidden;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+
+    img {
+        -o-object-fit: cover;
+           object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    @include mq(mm) {
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+    }
+}
+
+// 特典のテキスト
+.prizes-card__heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+
+    @include mq(mm) {
+        min-height: 70px;
+        font-size: 14px;
+    }
+
+    @include mq(ll) {
+        min-height: 80px;
+        padding-top: 7px;
+        padding-right: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        font-size: 16px;
+    }
+}
+
+// 特典全体を透明なボタンで覆う
+.prizes-card__button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+
+    &:hover {
+        border-color: $main-color;
+    }
+
+    &:focus {
+        border-color: $main-color;
+    }
+
+    @include mq(mm) {
+        border-width: 4px;
+        border-radius: 16px;
+    }
+}
+
+.prizes-card__icon {
+
+    svg {
+        position: absolute;
+        // 親要素のborderの太さ分外側に
+        right: -2px;
+        bottom: -2px;
+        display: block;
+        width: 36px;  
+        height: 36px;
+        border-bottom-right-radius: 8px;
+
+        @include mq(mm) {
+            right: -4px;
+            bottom: -4px;
+            width: 45px;
+            height: 45px;
+            border-bottom-right-radius: 16px;
+        }
+
+        @include mq(ll) {
+            width: 64px;
+            height: 64px;
+        }
+    }
+}
+
+// ----- prizes dialog -----
+.prizes__dialogs {
+}
+
+.prizes-modal {
+    width: 336px;
+    max-width: calc(100% - 20px);
+    height: 480px;
+    max-height: calc(100% - 20px);
+    padding-top: 0;
+    padding-right: 20px;
+    padding-bottom: 19px;
+    padding-left: 20px;
+    text-align: center;
+    background: $monochrome-color-White;
+    border: none;
+    border-radius: 24px;
+
+    &::-webkit-backdrop {
+        background: #000;
+        opacity: 0.7;
+    }
+
+    &::backdrop {
+        background: #000;
+        opacity: 0.7;
+    }
+
+    @include mq(mm) {
+        width: 400px;
+        height: 540px;
+    }
+
+    @include mq(ll) {
+        width: 480px;
+        height: 650px;
+        padding-right: 40px;
+        padding-bottom: 23px;
+        padding-left: 40px;
+    }
+}
+
+.prizes-modal__image {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+
+    @include mq(mm) {
+        width: calc(100% + 80px);
+        margin-left: -40px;
+    }
+}
+
+.prizes-modal__head {
+    margin-top: 39px;
+    font-size: 16px;
+    font-weight: 700;
+
+    @include mq(mm) {
+        font-size: 20px;
+    }
+}
+
+.prizes-modal__text {
+    margin-top: 12px;
+    font-weight: 400;
+}
+
+.prizes-modal__button {
+    padding-bottom: 4px;
+    margin-top: 16px;
+
+    @include mq(mm) {
+        margin-top: 24px;
+    }
+}
+
+// ----- /prizes dialog -----
+
+.prizes__button {
+    padding-bottom: 4px;
+    margin-top: 20px;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 40px;
+    }
+}
+
+.prizes__cover-background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -43px;
+
+    img {
+        display: block;
+        width: 100%;
+        min-width: 580px;
+
+        @include mq(mm) {
+            min-height: 600px;
+            -o-object-fit: cover;
+                object-fit: cover;
+            -o-object-position: center bottom;
+                object-position: center bottom;
+        }
+    }
+
+    @include mq(mm) {
+        display: block;
+        margin-top: 0;
+    }
+}
+// ----- /prizes -----
+
+// ----- spots -----
+.spots {
+    position: relative;
+    padding-top: 45.7px;
+    padding-bottom: 45.7px;
+    margin-top: -45.7px;
+
+    @include mq(mm) {
+        padding-top: 120px;
+        padding-bottom: 120px;
+        margin-top: -120px;
+    }
+
+    &::before, &::after {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 45.7px;
+        content: "";
+        background-color: transparent;
+        background-repeat: repeat-x;
+        background-position: left -3px center;
+        background-size: contain;
+
+        @include mq(mm) {
+            height: 120px;
+            background-position: left center;
+        }
+    }
+
+    // 上の青い波
+    &::before {
+        top: 1px;
+        background-image: url(../img/deco_wave-top_sp.svg), linear-gradient(to bottom, transparent 13px, #67b0c7 13px);
+
+        @include mq(mm) {
+            background-image: url(../img/deco_wave-top_pc.svg), linear-gradient(to bottom, transparent 33px, #67b0c7 33px);
+        }
+    }
+
+    // 下の青い波
+    &::after {
+        bottom: 1px;
+        background-image: url(../img/deco_wave-bottom_sp.svg), linear-gradient(to top, transparent 13px, #67b0c7 13px);
+        background-position: left -6px center;
+
+        @include mq(mm) {
+            background-image: url(../img/deco_wave-bottom_pc.svg), linear-gradient(to top, transparent 33px, #67b0c7 33px);
+        }
+    }
+}
+
+// svg 猫の足跡 
+.spots__decoration-pawpads {
+    position: absolute;
+    bottom: 120px;
+    left: 0;
+    width: 80px;
+
+    @include mq(ll) {
+        bottom: 120px;
+        left: calc(50% - 720px);
+        width: 100px;
+    }
+}
+
+// swiperブロック
+.spots__outer {
+    padding-bottom: 14.86px;
+    background-color: $sub-color-DBlue;
+
+    @include mq(mm) {
+        padding-bottom: 0;
+    }
+}
+
+.spots__top {
+    @include mq(mm) {
+        display: flex;
+        -moz-column-gap: 32px;
+            column-gap: 32px;
+        padding-left: max(30px, 50% - 512px);
+    }
+}
+
+// title
+.spots__heading-wrap {
+    text-align: center;
+
+    @include mq(mm) {
+        width: 56px;
+    }
+}
+
+// titleの文字
+.spots__heading {
+    position: relative;
+    display: inline-block;
+    padding-left: 36px;
+    font-family: $font-family-Kiwi, serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: $font-color-White;
+
+    @include mq(mm) {
+        padding-top: 72px;
+        padding-right: 3px;
+        padding-left: 3px;
+        font-size: 40px;
+        letter-spacing: 0.25em;
+        -webkit-writing-mode: vertical-lr;
+            -ms-writing-mode: tb-lr;
+                writing-mode: vertical-lr;
+    }
+
+    // 星
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 28px;
+        height: 28px;
+        content: "";
+        background-color: transparent;
+        background-image: url(../img/icon_star.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateY(-50%);
+
+        @include mq(mm) {
+            top: 0;
+            left: 50%;
+            width: 56px;
+            height: 56px;
+            transform: translateX(-50%);
+        }
+    }
+}
+
+.spots__slider {
+    margin-top: 25px;
+
+    @include mq(mm) {
+        width: calc(100% - 56px - 32px);
+        margin-top: 0;
+    }
+}
+
+// .spots-cardの高さを均一にする
+.swiper .swiper-slide {
+    height: auto;
+}
+
+.spots-swiper {
+}
+
+.spots-swiper__wrapper {
+}
+
+// ----- 個々のslider -----
+.spots-swiper__slide {
+    width: 229.531px;
+    margin-right: 16px;
+    height: auto;
+}
+
+.spots-card {
+    height: 100%;
+    padding-right: 24px;
+    padding-bottom: 30px;
+    padding-left: 24px;
+    overflow: hidden;
+    background: $monochrome-color-White;
+    border-radius: 12px;
+
+    @include mq(mm) {
+        padding-right: 32px;
+        padding-bottom: 40px;
+        padding-left: 32px;
+        border-radius: 24px;
+    }
+}
+
+.spots-card__image {
+    display: block;
+    width: calc(100% + 48px);
+    margin-left: -24px;
+
+    @include mq(mm) {
+        width: calc(100% + 64px);
+        margin-left: -32px;
+    }
+}
+
+// 個々の見出し
+.spots-card__heading {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 25px;
+        font-size: 20px;
+    }
+}
+
+// 個々のテキスト
+.spots-card__text {
+    margin-top: 16px;
+
+    @include mq(mm) {
+        margin-top: 25px;
+    }
+}
+// ----- /個々のslider -----
+
+.spots__inner {
+    @include mq(mm) {
+        max-width: 1084px;
+        padding-right: 30px;
+        padding-left: 30px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+.spots__arrows {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin-top: -10px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(ll) {
+        max-width: 944px;
+        margin-top: -32px;
+    }
+}
+
+.spots-swiper-arrows {
+    display: flex;
+    justify-content: space-between;
+}
+
+// .swiper-button-prev, 
+// .swiper-button-next {
+//     display: none;
+// }
+
+.spots-swiper-arrows__prev, 
+.spots-swiper-arrows__next {
+    position: static;
+    width: 80px;
+    height: 80px;
+    background-color: $accent-color-Yellow;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px 27px;
+    border-radius: 50%;
+    transition: background-position 0.3s;
+}
+.spots-swiper-arrows__prev::after,
+.spots-swiper-arrows__next::after {
+    content: "";
+}
+
+.spots-swiper-arrows__prev {
+    background-image: url(../img/icon_arrow-left.svg);
+
+    @media (hover: hover) {
+        &:hover {
+            background-position: center left 40%;
+        }
+    }
+}
+
+.spots-swiper-arrows__next {
+    background-image: url(../img/icon_arrow-right.svg);
+
+    @media (hover: hover) {
+        &:hover {
+            background-position: center right 40%;
+        }
+    }
+}
+
+.spots__bottom {
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(ll) {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        justify-content: center;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+}
+
+// SPOTSの文字
+.spots__decoration-english {
+    display: block;
+    width: 254px;
+    margin-right: auto;
+    margin-left: auto;
+    line-height: 1;
+
+    @include mq(mm) {
+        width: 360px;
+        margin-top: -45px;
+    }
+
+    @include mq(ll) {
+        width: 494px;
+        margin: 0;
+    }
+}
+
+.spots__text-wrap {
+    margin-top: 15px;
+
+    @include mq(ll) {
+        margin-top: 0;
+    }
+}
+
+// テキスト
+.spots__text {
+    color: $monochrome-color-White;
+    text-align: center;
+    font-size: 11.444px;
+    font-weight: 400;
+    line-height: 160%; /* 18.311px */
+
+    @include mq(mm) {
+        font-size: 14px;
+    }
+
+    @include mq(ll) {
+        font-size: 16px;
+        text-align: right;
+    }
+}
+
+.spots__button {
+    padding-bottom: 4px;
+    margin-top: 24px;
+    text-align: center;
+
+    @include mq(ll) {
+        text-align: right;
+    }
+}
+// ----- /spots -----
+
+// ----- qa -----
+.qa {
+    margin-top: 40px;
+
+    @include mq(mm) {
+        margin-top: 120px;
+    }
+}
+
+.heading--bubble {
+
+    // コメントアイコン
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 37.33px;
+        height: 37.33px;
+        content: "";
+        background-image: url(../img/icon_bubble.svg);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+    }
+}
+
+.qa__boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+
+    @include mq(mm) {
+        gap: 24px;
+        margin-top: 40px;
+    }
+}
+
+.qa-box {
+    overflow: hidden;
+    background: $monochrome-color-White;
+    border: 2px solid $font-color-Blown;
+    border-radius: 12px;
+
+    @include mq(mm) {
+        border-radius: 16px;
+    }
+}
+
+// question
+.qa-box__heading {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    padding: 10px 14px;
+
+    @include mq(mm) {
+        gap: 16px;
+        padding-top: 20.5px;
+        padding-right: 22px;
+        padding-bottom: 19.5px;
+        padding-left: 22px;
+    }
+
+    // Q +、-のアイコンを-にする
+    &.is-open {
+        padding-bottom: 21.5px;
+
+        .qa-box__heading-toggle::before {
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+// Q
+// A
+.qa-box__heading-icon, 
+.qa-box__answer-icon {
+    font-family: $font-family-Jose, sans-serif;
+    font-size: 24px;
+    line-height: 1.25;
+    color: $main-color;
+
+    @include mq(mm) {
+        font-size: 32px;
+    }
+}
+
+// Q text
+.qa-box__heading-text {
+    flex-grow: 1;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 160%; /* 22.4px */
+    text-align: left;
+
+    @include mq(mm) {
+        font-size: 20px;
+    }
+}
+
+// Q +、-のアイコン
+.qa-box__heading-toggle {
+    position: relative;
+    display: block;
+    width: 26px;
+    height: 26px;
+    background-color: #9ed0e0;
+    border-radius: 50%;
+
+    @include mq(mm) {
+        width: 48px;
+        height: 48px;
+    }
+
+    &::before, &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 2px;
+        content: "";
+        background: #fff;
+        border-radius: 50px;
+        transition: transform 0.3s;
+        transform: translate(-50%, -50%);
+
+        @include mq(mm) {
+            width: 19px;
+            height: 3px;
+        }
+    }
+
+    // +の縦棒
+    &::before {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+    
+    // &::after {
+    //     transform: translate(-50%, -50%);
+    // }
+}
+
+// answer
+.qa-box__body {
+    padding-top: 16px;
+    padding-right: 14px;
+    padding-bottom: 14px;
+    padding-left: 14px;
+    background: $monochrome-color-Gray;
+
+    @include mq(mm) {
+        padding-top: 24px;
+        padding-right: 22px;
+        padding-bottom: 22px;
+        padding-left: 22px;
+    }
+}
+
+.qa-box__answer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+// A text
+.qa-box__answer-text {
+    font-size: 14px;
+
+    @include mq(mm) {
+        font-size: 16px;
+    }
+}
+// ----- /qa -----
+
+// ----- entry requirements -----
+.entry-requirements{
+    margin-top: 30px;
+
+    @include mq(mm) {
+        margin-top: 120px;
+    }
+}
+
+.entry-requirements__contents {
+    padding-top: 15.5px;
+    padding-right: 15.5px;
+    padding-bottom: 32px;
+    padding-left: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 8px solid #fff;
+
+    @include mq(mm) {
+        padding-top: 32px;
+        padding-right: 48px;
+        padding-bottom: 44px;
+        padding-left: 48px;
+    }
+}
+
+// head
+.heading--note {
+
+    // noteアイコン
+    &::before{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 37.33px;
+        height: 37.33px;
+        content: "";
+        background-image: url(../img/icon_note.svg);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+    }
+}
+
+.entry-requirements__table {
+    margin-top: 24px;
+
+    @include mq(mm) {
+        margin-top: 40px;
+    }
+}
+
+.entry-repuiremets-table {
+    width: 100%;
+    // 列幅はwidthプロパティで指定した値で固定
+    table-layout: fixed;
+    // 隣り合うセル同士を重ねる
+    border-collapse: collapse;
+}
+
+.entry-repuiremets-table__row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+    padding-bottom: 14px;
+    text-align: left;
+    border-bottom: 1px solid $monochrome-color-DGray;
+
+    @include mq(mm) {
+        flex-direction: row;
+        gap: 20px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        padding-left: 16px;
+    }
+
+    &:first-child {
+        padding-top: 0;
+    }
+
+    &:last-child {
+        padding-bottom: 0;
+        border: none;
+    }
+}
+
+// 項目名
+.entry-repuiremets-table__header {
+    position: relative;
+    height: 100%;
+    padding-left: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+    vertical-align: middle;
+
+    @include mq(ss) {
+        font-size: 16px;
+    }
+
+    @include mq(mm) {
+        flex-grow: 1;
+        width: 188px;
+    }
+
+    // 青い丸
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        content: "";
+        background-color: $main-color;
+        border-radius: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+// テキスト
+.entry-repuiremets-table__data {
+    text-align: left;// 文字は左揃え
+    vertical-align: middle;// 全体的に中央配置
+
+    @include mq(mm) {
+        width: calc(100% - 224px);
+        font-size: 16px;
+    }
+
+    ul {
+        li {
+            position: relative;
+            padding-left: 1.5em;
+            line-height: 19px;
+
+            @include mq(ss) {
+                line-height: 22px;
+            }
+
+            @include mq(mm) {
+                line-height: 26px;
+            }
+
+            &::before {
+                position: absolute;
+                top: 0.1em;
+                left: 0.2em;
+                content: "・";
+            }
+        }
+    }
+}
+
+// webp 一番下
+.entry-requirements__cover-background {
+    display: block;
+    margin-top: 32px;
+
+    @include mq(mm) {
+        margin-top: 120px;
+    }
+
+    img {
+        width: 100%;
+    }
+}
+// ----- /entry requirements -----
+
+// ----- contact -----
+.contact {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: $monochrome-color-White;
+
+    @include mq(mm) {
+        padding-top: 120px;
+        padding-bottom: 116px;
+    }
+}
+
+.inner--narrow {
+    @include mq(mm) {
+        max-width: 908px;
+    }
+}
+
+// 見出し
+.heading--mail {
+
+    // メールアイコン
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 37.33px;
+        height: 37.33px;
+        content: "";
+        background-image: url(../img/icon_mail.svg);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translateX(-50%);
+    }
+}
+
+// 見出し下のテキスト
+.contact__text {
+    margin-top: 24px;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 32px;
+    }
+}
+
+.inline-block {
+    display: inline-block;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+.contact__form {
+    margin-top: 24px;
+
+    @include mq(mm) {
+        margin-top: 40px;
+    }
+}
+
+// 入力欄
+.contact__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+// 各項目
+.form-field {
+    @include mq(mm) {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+}
+
+// 項目名と必須
+.form-field__heading {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    @include mq(mm) {
+        width: 180px;
+    }
+}
+
+// 項目名
+.form-field__label {
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    @include mq(ss) {
+        font-size: 16px;
+    }
+}
+
+// 必須
+.form-field__tag {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 160%; /* 19.2px */
+    color: $font-color-White;
+    background-color: $accent-color-Red;
+    border-radius: 4px;
+
+    @include mq(mm) {
+        margin-bottom: 1px;
+    }
+}
+
+.form-field__item {
+    margin-top: 8px;
+
+    @include mq(mm) {
+        width: calc(100% - 180px - 40px);
+        margin-top: 0;
+    }
+}
+
+// テキストボックス
+.form-text,
+.form-textarea {
+    width: 100%;
+    height: 56px;
+    padding: 14.5px 15px;
+    font-size: 14px;
+    background: #f5f5f5;
+    border: none;
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    @include mq(mm) {
+        font-size: 16px;
+    }
+
+    &:hover {
+        outline: none;
+    }
+
+    &:focus {
+        background-color: $bg-color;
+        border-color: $main-color;
+        outline: none;
+    }
+
+    .is-error {
+        background-color: #fff0f7;
+        border-color: #ce2073;
+    }
+}
+
+// Firefox
+.form-text::-moz-placeholder, .form-textarea::-moz-placeholder {
+    color: #cccccc;
+}
+// Chrome, Safari
+.form-text::-webkit-input-placeholder, .form-textarea::-webkit-input-placeholder {
+    color: #cccccc;
+}
+// Internet Explorer 10
+.form-text:-ms-input-placeholder, .form-textarea:-ms-input-placeholder {
+    color: #cccccc;
+}
+// Internet Explorer 11
+.form-text::-ms-input-placeholder, .form-textarea::-ms-input-placeholder {
+    color: #cccccc;
+}
+.form-text::-webkit-input-placeholder, .form-textarea::-webkit-input-placeholder {
+    color: #cccccc;
+}
+.form-text::-moz-placeholder, .form-textarea::-moz-placeholder {
+    color: #cccccc;
+}
+.form-text:-ms-input-placeholder, .form-textarea:-ms-input-placeholder {
+    color: #cccccc;
+}
+
+.form-text::placeholder,
+.form-textarea::placeholder {
+    color: #cccccc;
+}
+
+// テキストエリア
+.form-textarea {
+    height: 160px;
+}
+
+// セレクトボックス
+.form-select {
+    position: relative;
+    width: 100%;
+    height: 56px;
+    padding: 14.5px 15px;
+    font-size: 14px;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    cursor: pointer;
+    // svgと青背景を指定
+    background-image: url(../img/icon_select-arrow.svg), linear-gradient(to left, #9ed0e0 52px, #f5f5f5 52px);
+    background-repeat: no-repeat, no-repeat;
+    // svgと青背景の位置を調整
+    background-position: center right 10px, center center;
+    // background-size: 14.9px 8.78px, cover;
+    background-size: 32px 32px, cover;
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    @include mq(mm) {
+        font-size: 16px;
+    }
+
+    &:focus {
+        border-color: $main-color;
+        outline: none;
+    }
+
+    &:hover {
+        outline: none;
+    }
+
+    .is-error {
+        background-image: url(../img/icon_select-arrow.svg), linear-gradient(to left, #ce2073 52px, #fff0f7 52px);
+        border-color: #ce2073;
+    }
+}
+
+// ラジオボタン
+.form-field__radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    padding: 0;
+
+    @include mq(mm) {
+        height: 56px;
+        padding-left: 2px;
+    }
+}
+
+// ラジオボタン項目
+.from-radio {
+    @media (hover: hover) {
+        &:hover {
+            border-color: $main-color;
+        }
+    }
+}
+
+// ラジオボタンのチェック
+.from-radio__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    // チェックされた時
+    &:checked + .from-radio__text {
+        // 文字を太くする
+        font-weight: 700;
+
+        // 青い丸を表示させる
+        &::after {
+            opacity: 1;
+        }
+    }
+
+    // ラジオボタンがフォーカスされた時のスタイル
+    &:focus + .from-radio__text::before {
+        // フォーカス時のボーダー色変更
+        border-color: $main-color;
+    }
+}
+
+// ラジオボタンのテキスト
+.from-radio__text {
+    position: relative;
+    padding-left: 32px;
+    font-size: 14px;
+
+    @include mq(mm) {
+        font-size: 16px;
+    }
+
+    // ラジオボタン
+    &::before, &::after {
+        position: absolute;
+        top: 50%;
+        content: "";
+        border-radius: 50%;
+        transform: translateY(-50%);
+    }
+
+    // ラジオボタン グレーの丸
+    &::before {
+        left: 0;
+        width: 24px;
+        height: 24px;
+        background: $monochrome-color-Gray;
+        border: 1px solid transparent;
+    }
+    &:hover::before {
+        border-color: $main-color;
+    }
+
+    // ラジオボタン 青の丸
+    &::after {
+        left: 6px;
+        width: 12px;
+        height: 12px;
+        background: $main-color;
+        opacity: 0;
+        transition: opacity 0.2s ease; // アニメーションを追加
+    }
+}
+
+// メッセージ
+.form-field--top-alignment {
+}
+
+// プライバシーポリシーに合意する
+.contact__privacy {
+    margin-top: 24px;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 40px;
+    }
+}
+
+// プライバシーポリシーのチェックボックス
+.form-checkbox {
+    cursor: pointer;
+}
+
+// プライバシーポリシーのチェック
+.form-checkbox__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    // チェックされた時
+    &:checked + .form-checkbox__text::after {
+        // チェックを表示させる
+        opacity: 1;
+    }
+
+    &:focus + .form-checkbox__text::before {
+        border-color: #9ed0e0;
+    }
+
+    .is-error + .form-checkbox__text::before {
+        background-color: #fff0f7;
+        border-color: #ce2073;
+    }
+}
+
+// プライバシーポリシーのテキスト
+.form-checkbox__text {
+    position: relative;
+    padding-left: 36px;
+    font-size: 14px;
+
+    @include mq(mm) {
+        font-size: 16px;
+    }
+
+    // チェックボックス
+    &::before, &::after {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        content: "";
+        transform: translateY(-50%);
+    }
+
+    // チェックボックスの箱
+    &::before {
+        width: 24px;
+        height: 24px;
+        background: $monochrome-color-Gray;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    // チェックボックスのチェック
+    &::after {
+        top: 50%;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        background-image: url(../img/icon_checked.svg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+}
+
+// ボタン
+.contact__button {
+    padding-bottom: 4px;
+    margin-top: 27px;
+    text-align: center;
+
+    @include mq(mm) {
+        margin-top: 40px;
+    }
+}
+// ----- /contact -----
+
+// ----- footer -----
+.footer {
+    position: relative;
+    padding-top: 40px;
+
+    @include mq(mm) {
+        padding-top: 120px;
+    }
+}
+
+.footer__inner {
+    @include mq(mm) {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+// svg 猫の足跡
+.footer__decoration-pawpads {
+    position: absolute;
+    z-index: -1;
+
+    @include mq(mm) {
+        top: -40px;
+        right: 0;
+        width: 70px;
+    }
+
+    @include mq(ll) {
+        right: auto;
+        left: calc(50% + 576px);
+        width: 100px;
+    }
+}
+
+// sns
+.footer__sns-links {
+}
+
+.sns-links {
+}
+
+// sns title
+.sns-links__title {
+    display: block;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+    line-height: 1.25;
+    text-align: center;
+
+    @include mq(mm) {
+        font-size: 24px;
+    }
+
+    &::before {
+        content: "\\ ";
+    }
+
+    &::after {
+        content: " /";
+    }
+}
+
+// 各sns
+.sns-links__nav {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.sns-button {
+    position: relative;
+    display: grid;
+    // アイコンを縦横中央に
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    transition: -webkit-filter 0.5s;
+    transition: filter 0.5s;
+    transition: filter 0.5s, -webkit-filter 0.5s;
+
+    img {
+        width: 100%;
+    }
+
+    // クリックできる範囲を広げる
+    &::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50px;
+        height: 50px;
+        content: "";
+        transform: translate(-50%, -50%);
+
+        @include mq(mm) {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    @media (hover: hover) {
+        // hoverで明度を下げる
+        &:hover {
+            -webkit-filter: brightness(0.8);
+                    filter: brightness(0.8);  // 明るさを下げてアイコンを暗くする
+        }
+    }
+    
+}
+
+// webp 「ONOMICHI」の文字
+.footer__decoration-english {
+    max-width: 335px;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(mm) {
+        max-width: 755px;
+        margin-top: 30px;
+    }
+}
+
+// -----address-----
+.footer__address-wrap {
+    margin-top: -2px;
+
+    @include mq(mm) {
+        margin-top: -2px;
+    }
+}
+
+.address-wrap {
+    overflow: hidden;
+    background-color: $monochrome-color-White;
+    border-radius: 16px;
+
+    @include mq(mm) {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+}
+
+// google map
+.address-wrap__map {
+    @include mq(mm) {
+        width: 50%;
+    }
+
+    iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 335 / 271;
+        vertical-align: top;
+
+        @include mq(mm) {
+            aspect-ratio: 512/400;
+        }
+    }
+}
+
+// address 詳細
+.address-wrap__body {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-top: 22px;
+    padding-right: 26px;
+    padding-bottom: 30px;
+    padding-left: 27px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(mm) {
+        padding: 10px;
+        margin-top: 0;
+    }
+}
+
+// onomichi logo
+.address-wrap__logo {
+    width: 153px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include mq(mm) {
+        display: inline-block;
+        width: 183px;
+        margin: 0;
+    }
+}
+
+// address 情報
+.address-wrap__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-top: 30px;
+
+    @include mq(mm) {
+        gap: 12px;
+        margin-top: 26px;
+    }
+}
+
+.address-wrap__info-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    @include mq(ll) {
+        gap: 40px;
+    }
+}
+
+.address-wrap__info-term {
+    position: relative;
+    min-width: 64px;
+    padding-left: 16px;
+    font-size: 12px;
+    font-weight: 700;
+
+    @include mq(ss) {
+        width: 80px;
+        font-size: 14px;
+    }
+
+    @include mq(ll) {
+        font-size: 16px;
+    }
+
+    // 青い丸
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        content: "";
+        background-color: $main-color;
+        border-radius: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.address-wrap__info-description {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%; /* 19.2px */
+
+    @include mq(ss) {
+        font-size: 14px;
+    }
+
+    @include mq(ll) {
+        font-size: 16px;
+    }
+}
+// -----/address-----
+
+// トップへ戻る
+.footer__pagetop {
+    margin-top: 24px;
+    text-align: center;
+
+    @include mq(mm) {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        z-index: 10;
+        margin-top: 0;
+    }
+
+    @include mq(ll) {
+        right: 40px;
+        bottom: 40px;
+    }
+}
+
+// トップへ戻るボタン
+.pagetop {
+    width: 75px;
+    cursor: pointer;
+    transition: -webkit-filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+
+    @include mq(mm) {
+        display: none;
+        width: 80px;
+        height: 83.2px;
+    }
+
+    @include mq(ll) {
+        width: 100px;
+        height: 104px;
+    }
+
+    // hoverで明度を下げる
+    &:hover {
+        -webkit-filter: brightness(0.8);
+                filter: brightness(0.8);
+    }
+}
+// footer 下の文字
+.footer__bottom {
+    position: relative;
+    padding-top: 45.7px;
+    margin-top: 24px;
+
+    @include mq(mm) {
+        padding-top: 120px;
+        margin-top: 120px;
+    }
+
+    &::before {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        width: 100%;
+        height: 45.7px;
+        content: "";
+        background-image: url(../img/deco_wave-top_sp.svg), linear-gradient(to bottom, transparent 13px, #67b0c7 13px);
+        background-repeat: repeat-x;
+        background-position: left -6px center;
+        background-size: contain;
+
+        @include mq(mm) {
+            height: 120px;
+            background-image: url(../img/deco_wave-top_pc.svg), linear-gradient(to bottom, transparent 33px, #67b0c7 33px);
+            background-position: left center;
+        }
+    }
+}
+
+.footer__copyright {
+    display: block;
+    padding-bottom: 25px;
+    font-size: 10px;
+    color: $monochrome-color-White;
+    text-align: center;
+    background-color: $sub-color-DBlue;
+
+    @include mq(mm) {
+        padding-bottom: 32px;
+        font-size: 14px;
+    }
+}
+// ----- /footer -----
